@@ -3,66 +3,121 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ice &amp; Iron · Ötztal glaciers to Brenta ferratas</title>
+<title>Ice &amp; Iron · Ötztal to Brenta</title>
 <meta name="description" content="Alex + Cata · an 8-day guided glacier and via ferrata trip through the Austrian and Italian Alps.">
 <meta name="theme-color" content="#f6f5f1">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;600;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/leaflet.css">
 <style>
 :root{--bg:#f6f5f1;--ink:#161616;--mute:#77776f;--line:rgba(22,22,22,.12);--accent:#c8643c;
---sans:Inter,"Helvetica Neue",Helvetica,Arial,sans-serif;--pad:clamp(20px,5vw,72px);--max:1240px}
+--sans:"Inter Tight","Helvetica Neue",Helvetica,Arial,sans-serif;--serif:"Instrument Serif",Georgia,serif;
+--xl:clamp(40px,6vw,84px);--l:clamp(22px,2.3vw,30px);--m:16px;--s:13px;--pad:clamp(20px,5vw,72px);--max:1240px}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.55;font-weight:400;-webkit-font-smoothing:antialiased}
 img{display:block;max-width:100%}
 a{color:inherit}
-b,strong,h1,h2,h3,h4{font-weight:600}
+b,strong{font-weight:600}
+h1,h2,h3{font-weight:800;letter-spacing:-.04em;line-height:1}
+h1 i,h2 i,h3 i{font-family:var(--serif);font-style:italic;font-weight:400;letter-spacing:-.01em}
+h4{font-weight:600}
 .in{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
-.label{font-size:13px;color:var(--mute);letter-spacing:.02em}
+.label{font-size:var(--s);color:var(--mute);letter-spacing:.02em}
 section{padding:clamp(72px,10vw,140px) 0 0}
 .shead{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:end;margin-bottom:40px}
-.shead h2{font-size:clamp(30px,4vw,48px);line-height:1.08;letter-spacing:-.025em}
-.shead p{color:#4a4a45;max-width:46ch}
+.shead h2{font-size:var(--xl)}
+.shead p{color:#4a4a45;max-width:46ch;font-size:var(--m)}
 @media(max-width:800px){.shead{grid-template-columns:1fr;gap:12px}}
 /* nav */
-.nav{position:absolute;inset:0 0 auto;z-index:10;color:#fff}
-.nav .in{display:flex;justify-content:space-between;align-items:center;height:64px;max-width:none}
-.nav a{text-decoration:none;font-size:14px}
-.nav ul{display:flex;gap:28px;list-style:none}
-@media(max-width:800px){.nav ul{display:none}}
+.nav{position:sticky;top:0;z-index:1000;background:rgba(246,245,241,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .in{display:flex;align-items:center;gap:28px;height:58px;max-width:none}
+.nav .brand{font-weight:800;letter-spacing:-.04em;font-size:20px;text-decoration:none;white-space:nowrap}
+.nav .brand i{font-family:var(--serif);font-weight:400}
+.nav ul{display:flex;gap:4px;list-style:none;margin-left:auto;overflow-x:auto;scrollbar-width:none}
+.nav ul::-webkit-scrollbar{display:none}
+.nav ul a{display:block;padding:7px 13px;border-radius:99px;text-decoration:none;font-size:var(--s);font-weight:600;white-space:nowrap;color:#3c3c38}
+.nav ul a:hover{background:rgba(22,22,22,.06)}
+.nav ul a.on{background:var(--ink);color:#fff}
+@media(max-width:900px){.nav .in{flex-direction:column;align-items:stretch;gap:0;height:auto;padding:0}.nav .brand{padding:12px var(--pad) 4px}.nav ul{margin:0;padding:4px var(--pad) 10px}}
+.page[hidden]{display:none}
+.page>section:first-child{padding-top:clamp(40px,6vw,88px)}
+main{min-height:80vh}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{position:relative;display:block;aspect-ratio:4/5;border-radius:6px;overflow:hidden;color:#fff;text-decoration:none;background:#222}
+.tile:first-child{grid-column:span 2;aspect-ratio:auto}
+.tile img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s ease}
+.tile:hover img{transform:scale(1.04)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.62))}
+.tile span{position:absolute;left:18px;right:18px;bottom:16px;z-index:2}
+.tile b{display:block;font-size:var(--l);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.tile small{display:block;font-size:var(--s);opacity:.88;margin-top:4px}
+section.home{padding-top:clamp(28px,4vw,56px);padding-bottom:clamp(48px,6vw,88px)}
+@media(max-width:700px){.hero{height:62svh;min-height:400px}}
+@media(max-width:900px){.tiles{grid-template-columns:1fr 1fr;gap:10px}.tile{aspect-ratio:1/1}.tile:first-child{aspect-ratio:2/1}.tile span{left:12px;right:12px;bottom:10px}.tile b{font-size:18px}.tile small{font-size:12px}}
+.glance{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0 24px;margin-top:48px;border-top:1px solid var(--line)}
+.glance a{display:block;padding:16px 0;border-bottom:1px solid var(--line);text-decoration:none}
+.glance span{font-size:var(--s);color:var(--mute)}
+.glance b{display:block;font-weight:600;margin-top:2px}
+.glance small{display:block;font-size:var(--s);color:#55554f}
+.glance a:hover b{text-decoration:underline}
+@media(max-width:900px){.glance{grid-template-columns:1fr 1fr}}
+.go{font-weight:600;font-size:var(--m)}
+.daytabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.daytabs::-webkit-scrollbar{display:none}
+.daytabs a{flex:1 0 auto;min-width:96px;padding:10px 12px;border-radius:6px 6px 0 0;text-decoration:none;font-size:var(--s);line-height:1.3;color:#55554f}
+.daytabs a b{display:block;color:var(--ink);font-weight:600}
+.daytabs a small{display:block;white-space:nowrap;font-size:12px}
+.daytabs a.on{background:var(--ink);color:#ddd}.daytabs a.on b{color:#fff}
+.day[hidden]{display:none}
+#daycards .day{border-top:0;padding-top:36px}
+.daynav{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line);padding-top:20px}
+.daynav a{text-decoration:none;font-weight:600;font-size:var(--m)}
+.daynav a small{display:block;font-weight:400;font-size:var(--s);color:var(--mute)}
+.daynav a.nx{text-align:right}
+.tblwrap{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:#fff}
+table.cmp{width:100%;border-collapse:collapse;font-size:var(--s);min-width:860px}
+.cmp th{text-align:left;font-weight:600;color:var(--mute);padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.cmp td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top;white-space:nowrap}
+.cmp td:nth-child(2){white-space:normal;min-width:200px}
+.cmp td a{text-decoration:none;font-weight:600;color:var(--ink)}
+.cmp td small{display:block;color:var(--mute)}
+.cmp tbody tr{cursor:pointer}.cmp tbody tr:hover{background:#f6f5f1}
+.cmp tr.hard td:first-child b{color:var(--accent)}
+.cmp tfoot td{font-weight:600;border-bottom:0}
+.cmp td:first-child{position:sticky;left:0;background:inherit}
 /* hero */
-.hero{position:relative;height:92svh;min-height:560px;color:#fff;display:flex;align-items:flex-end;overflow:hidden}
+.hero{position:relative;height:calc(78svh - 58px);min-height:440px;color:#fff;display:flex;align-items:flex-end;overflow:hidden}
 .hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,0) 30%,rgba(0,0,0,.05) 55%,rgba(0,0,0,.5))}
 .hero .in{position:relative;z-index:2;width:100%;max-width:none;padding-bottom:clamp(32px,6vw,72px)}
-.hero h1{font-size:clamp(44px,7vw,96px);line-height:1;letter-spacing:-.035em}
-.hero p{margin-top:16px;font-size:clamp(16px,1.5vw,19px);max-width:44ch;opacity:.92}
-.hero .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;font-size:14px;opacity:.85}
+.hero h1{font-size:calc(var(--xl)*1.35)}
+.hero p{margin-top:16px;font-size:var(--m);max-width:44ch;opacity:.92}
+.hero .meta{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;font-size:var(--s);opacity:.85}
 /* intro */
-.intro p.lead{font-size:clamp(22px,2.6vw,32px);line-height:1.35;letter-spacing:-.015em;max-width:30ch}
+.intro p.lead{font-size:var(--l);line-height:1.3;letter-spacing:-.02em;max-width:32ch}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);margin-top:56px;border-top:1px solid var(--line)}
 .stats div{padding:20px 0 0}
-.stats b{display:block;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.03em;font-weight:600}
-.stats span{font-size:14px;color:var(--mute)}
+.stats b{display:block;font-size:var(--l);letter-spacing:-.03em;font-weight:800}
+.stats span{font-size:var(--s);color:var(--mute)}
 @media(max-width:700px){.stats{grid-template-columns:1fr 1fr;row-gap:12px}}
 /* map */
-.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:13px;color:#4a4a45;margin-bottom:14px}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:var(--s);color:#4a4a45;margin-bottom:14px}
 .legend span{display:inline-flex;align-items:center;gap:8px}
 .legend i{width:18px;height:3px;border-radius:2px;display:inline-block}
 .legend i.dash{height:0;border-top:2px dashed #9a9a93;background:none}
 .mapwrap{display:grid;grid-template-columns:260px 1fr;border:1px solid var(--line);border-radius:6px;overflow:hidden;background:#fff}
 .daylist{display:flex;flex-direction:column;border-right:1px solid var(--line)}
-.daylist button{all:unset;cursor:pointer;padding:12px 18px;border-bottom:1px solid var(--line);font-size:14px;line-height:1.3;transition:background .2s}
+.daylist button{all:unset;cursor:pointer;padding:12px 18px;border-bottom:1px solid var(--line);font-size:var(--s);font-weight:600;line-height:1.3;transition:background .2s}
 .daylist button:last-child{border-bottom:0}
 .daylist button:hover{background:#f2f1ec}
 .daylist button.on{background:var(--ink);color:#fff}
-.daylist button small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.daylist button small{display:block;color:var(--mute);font-size:var(--s);font-weight:400;margin-top:2px}
 .daylist button.on small{color:#bdbdb5}
 #map{height:620px;background:#e7e6e0}
 .leaflet-tile-pane{filter:grayscale(1) contrast(1.05) brightness(1.05)}
 .leaflet-container{font-family:var(--sans)}
-.mlabel{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:2px 7px;font-size:11px;box-shadow:none}
+.mlabel{background:#fff;color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:2px 7px;font-size:12px;box-shadow:none}
 .mlabel::before{display:none}
 @media(max-width:900px){.mapwrap{grid-template-columns:1fr}.daylist{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--line);scrollbar-width:none}.daylist::-webkit-scrollbar{display:none}.daylist button{border-bottom:0;border-right:1px solid var(--line);min-width:118px;white-space:normal}#map{height:64vh}}
 /* elevation */
@@ -74,30 +129,49 @@ section{padding:clamp(72px,10vw,140px) 0 0}
 .elev-tip{position:fixed;z-index:50;pointer-events:none;background:var(--ink);color:#fff;padding:9px 11px;border-radius:5px;font-size:12px;line-height:1.4;opacity:0;transition:opacity .15s;max-width:240px}
 .elev-tip.on{opacity:1}
 /* days */
-.day{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);padding:44px 0;border-top:1px solid var(--line);align-items:start}
-.day .num{font-size:13px;color:var(--mute)}
-.day h3{font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em;line-height:1.15;margin-top:6px}
-.day .route{margin-top:12px;color:#3c3c38;max-width:54ch}
-.facts{display:grid;grid-template-columns:repeat(4,auto);justify-content:start;gap:28px;margin-top:22px}
-.facts b{display:block;font-size:20px;letter-spacing:-.01em}
-.facts span{font-size:12px;color:var(--mute)}
-.meta-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;margin-top:20px;font-size:13px;color:#4a4a45}
-.dots{display:inline-flex;gap:4px;vertical-align:middle;margin-right:6px}
-.dots i{width:9px;height:9px;border-radius:50%;background:rgba(22,22,22,.14)}
+.day{padding:56px 0;border-top:1px solid var(--line)}
+.day .num{font-size:var(--s);color:var(--mute)}
+.day h3{font-size:var(--l);margin-top:6px}
+.day .fromto{font-size:var(--m);margin-top:8px;color:#3c3c38}
+.day .fromto b{font-weight:600}
+.day-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(24px,4vw,56px);margin-top:24px;align-items:start}
+.day .route{color:#3c3c38;max-width:54ch;font-size:var(--m)}
+.day .alt{margin-top:14px;font-size:var(--m);color:#55554f;padding-left:12px;border-left:2px solid var(--line);max-width:54ch}
+.day .maplink{all:unset;cursor:pointer;font-size:var(--s);margin-top:16px;display:inline-block;border-bottom:1px solid currentColor}
+.day figure{border-radius:6px;overflow:hidden;aspect-ratio:16/10;background:#ddd;margin-top:22px}
+.day figure img{width:100%;height:100%;object-fit:cover}
+.day figcaption{font-size:var(--s);color:var(--mute);margin-top:6px}
+.mini-wrap{position:relative}
+.mini{height:300px;border-radius:6px;border:1px solid var(--line);background:#e7e6e0;z-index:0}
+.inset{position:absolute;right:10px;bottom:28px;width:150px;height:130px;border-radius:5px;border:2px solid #fff;box-shadow:0 2px 10px rgba(0,0,0,.18);z-index:500;background:#e7e6e0}
+.inset-l{position:absolute;right:10px;bottom:162px;z-index:501;font-size:11px;background:#fff;border-radius:3px;padding:1px 6px;border:1px solid var(--line)}
+.mini .leaflet-control-attribution{font-size:9px}
+.mkey{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:var(--s);color:#55554f;margin-top:10px}
+.mkey span{display:inline-flex;align-items:center;gap:6px}
+.mkey i{display:inline-block;width:18px;height:0;border-top:3px solid}
+.mkey i.d{border-top-style:dashed;border-top-width:2px}
+.mkey i.a{border-top-style:dashed;border-top-width:2px;opacity:.55}
+.dstats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border-top:1px solid var(--line)}
+.dstats div{padding:10px 10px 10px 0;border-bottom:1px solid var(--line)}
+.dstats dt{font-size:var(--s);color:var(--mute)}
+.dstats dd{font-size:var(--m);font-weight:600;margin-top:2px;line-height:1.3}
+.dots{display:inline-flex;gap:3px;vertical-align:middle;margin-right:6px}
+.dots i{width:8px;height:8px;border-radius:50%;background:rgba(22,22,22,.14)}
 .dots i.f{background:var(--ink)}
 .day.hard .dots i.f{background:var(--accent)}
-.hardtag{color:var(--accent);font-weight:600}
-.day .alt{margin-top:16px;font-size:14px;color:#55554f;padding-left:12px;border-left:2px solid var(--line);max-width:54ch}
-.day .maplink{all:unset;cursor:pointer;font-size:14px;margin-top:16px;display:inline-block;border-bottom:1px solid currentColor}
-.day figure{border-radius:6px;overflow:hidden;aspect-ratio:4/3;background:#ddd}
-.day figure img{width:100%;height:100%;object-fit:cover}
-.day figcaption{font-size:12px;color:var(--mute);margin-top:8px}
-@media(max-width:900px){.day{grid-template-columns:1fr}.day .pic{order:-1}.facts{grid-template-columns:repeat(2,auto);gap:14px 32px}}
+.hardtag{color:var(--accent);font-weight:600;font-size:var(--s);margin-left:8px}
+.est{font-size:var(--s);color:var(--mute);margin-top:10px}
+.mlab{background:var(--ink);color:#fff;border:0;border-radius:3px;padding:2px 6px;font-size:11px;font-weight:600;box-shadow:none;font-family:var(--sans)}
+.mlab.end{background:#fff;color:var(--ink);border:1.5px solid var(--ink)}
+.mlab.wp{background:rgba(255,255,255,.9);color:#3c3c38;font-weight:400;border:1px solid var(--line)}
+.mlab.alt{background:rgba(255,255,255,.9);color:#55554f;font-weight:400;border:1px dashed #888}
+.mlab::before{display:none}
+@media(max-width:900px){.day-grid{grid-template-columns:1fr}.day-map{order:-1}.mini{height:230px}.inset{width:110px;height:96px;bottom:26px}.inset-l{bottom:126px}}
 /* stays */
 .stay{padding:48px 0;border-top:1px solid var(--line)}
 .stay-head{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:baseline;margin-bottom:20px}
-.stay h3{font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em;line-height:1.15}
-.stay .sub{font-size:14px;color:var(--mute);margin-top:4px}
+.stay h3{font-size:var(--l)}
+.stay .sub{font-size:var(--s);color:var(--mute);margin-top:4px}
 .stay .desc{color:#3c3c38;max-width:52ch}
 .set{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:repeat(2,minmax(0,1fr));gap:8px;height:clamp(320px,38vw,500px)}
 .set figure{position:relative;overflow:hidden;border-radius:6px;background:#ddd;cursor:zoom-in}
@@ -111,50 +185,51 @@ section{padding:clamp(72px,10vw,140px) 0 0}
  .set::-webkit-scrollbar{display:none}
  .set figure{flex:0 0 82%;aspect-ratio:4/3;scroll-snap-align:center}
  .swipe{display:block!important}}
-.swipe{display:none;font-size:12px;color:var(--mute);margin-top:8px}
+.swipe{display:none;font-size:var(--s);color:var(--mute);margin-top:8px}
 /* gallery */
 .gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .gallery figure{overflow:hidden;border-radius:6px;aspect-ratio:4/3;background:#ddd;cursor:zoom-in}
 .gallery figure.w{grid-column:span 2;aspect-ratio:auto}
+@media(min-width:701px){.gallery figure{position:relative}.gallery figure.w img,.gallery figure:last-child img{position:absolute;inset:0}.gallery figure:last-child{grid-column:span 3;aspect-ratio:3/1}}
 .gallery img{width:100%;height:100%;object-fit:cover}
 @media(max-width:700px){.gallery{grid-template-columns:1fr 1fr}.gallery figure.w{grid-column:span 2;aspect-ratio:16/10}}
 .lightbox{position:fixed;inset:0;z-index:100;background:rgba(12,12,12,.94);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s}
 .lightbox.on{opacity:1;pointer-events:auto}
 .lightbox img{max-width:94vw;max-height:84vh;object-fit:contain}
-.lightbox p{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#ccc;font-size:13px;padding:0 20px}
+.lightbox p{position:absolute;bottom:18px;left:0;right:0;text-align:center;color:#ccc;font-size:var(--s);padding:0 20px}
 /* practical */
 .prac{display:grid;grid-template-columns:1fr 1fr;gap:clamp(32px,6vw,96px)}
-.price{font-size:clamp(40px,5vw,60px);letter-spacing:-.03em;font-weight:600;line-height:1}
-.price + p{color:var(--mute);font-size:14px;margin-top:8px}
+.price{font-size:var(--xl);letter-spacing:-.05em;font-weight:800;line-height:1}
+.price + p{color:var(--mute);font-size:var(--s);margin-top:8px}
 .rows{margin-top:28px}
-.rows div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-top:1px solid var(--line);font-size:15px}
+.rows div{display:flex;justify-content:space-between;gap:20px;padding:12px 0;border-top:1px solid var(--line);font-size:var(--m)}
 .rows div:last-child{border-bottom:1px solid var(--line)}
 .rows .tot{font-weight:600}
-.note{font-size:13px;color:var(--mute);margin-top:14px;max-width:60ch}
-h4{font-size:15px;margin:32px 0 10px}
+.note{font-size:var(--s);color:var(--mute);margin-top:14px;max-width:60ch}
+h4{font-size:var(--m);margin:32px 0 10px}
 h4:first-child{margin-top:0}
 ul.plain{list-style:none}
-ul.plain li{padding:9px 0;border-top:1px solid var(--line);font-size:15px}
+ul.plain li{padding:9px 0;border-top:1px solid var(--line);font-size:var(--m)}
 ul.plain li:last-child{border-bottom:1px solid var(--line)}
 ul.plain li.x{color:var(--mute)}
 .cal{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-.cal div{padding:12px;border-radius:5px;font-size:13px;background:#ecebe5}
-.cal div small{display:block;color:var(--mute);font-size:12px;margin-top:2px}
+.cal div{padding:12px;border-radius:5px;font-size:var(--s);background:#ecebe5}
+.cal div small{display:block;color:var(--mute);font-size:var(--s);margin-top:2px}
 .cal .best{background:var(--ink);color:#fff}.cal .best small{color:#c9c9c1}
 @media(max-width:900px){.prac{grid-template-columns:1fr}.cal{grid-template-columns:1fr 1fr}}
 .optb{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;margin-top:clamp(56px,8vw,100px)}
 .optb figure{border-radius:6px;overflow:hidden;aspect-ratio:4/3}
 .optb img{width:100%;height:100%;object-fit:cover}
-.optb h3{font-size:clamp(24px,2.6vw,32px);letter-spacing:-.02em}
+.optb h3{font-size:var(--l)}
 .optb p{margin-top:12px;color:#3c3c38;max-width:52ch}
 .vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
-.vs div{border:1px solid var(--line);border-radius:6px;padding:14px;font-size:14px;color:#3c3c38}
+.vs div{border:1px solid var(--line);border-radius:6px;padding:14px;font-size:var(--s);color:#3c3c38}
 .vs b{display:block;color:var(--ink);margin-bottom:4px}
 @media(max-width:900px){.optb{grid-template-columns:1fr}.vs{grid-template-columns:1fr}}
 /* footer */
-footer{margin-top:clamp(80px,10vw,140px);border-top:1px solid var(--line);padding:56px 0 48px;font-size:12.5px;color:#5c5c56;line-height:1.6}
+footer{margin-top:clamp(56px,8vw,100px);border-top:1px solid var(--line);padding:56px 0 48px;font-size:var(--s);color:#5c5c56;line-height:1.6}
 footer .cols{display:grid;grid-template-columns:1fr 1fr;gap:48px}
-footer h5{font-size:13px;color:var(--ink);margin-bottom:10px;font-weight:600}
+footer h5{font-size:var(--s);color:var(--ink);margin-bottom:10px;font-weight:600}
 footer ol{padding-left:18px}
 footer ul{list-style:none;columns:2 240px;column-gap:24px}
 footer li{break-inside:avoid;margin-bottom:3px}
@@ -166,58 +241,29 @@ footer li{break-inside:avoid;margin-bottom:3px}
 </style>
 </head>
 <body>
-<nav class="nav"><div class="in"><a href="#top"><b>Ice &amp; Iron</b></a>
-<ul><li><a href="#route">Route</a></li><li><a href="#days">Days</a></li><li><a href="#stays">Huts</a></li><li><a href="#info">Price</a></li></ul></div></nav>
-
+<nav class="nav" id="nav"><div class="in"><a class="brand" href="#/">Ice <i>&amp;</i> Iron</a><ul class="pills"><li><a href="#/overview" data-p="overview">Overview</a></li><li><a href="#/days" data-p="days">Day by day</a></li><li><a href="#/map" data-p="map">Map</a></li><li><a href="#/stats" data-p="stats">Distances</a></li><li><a href="#/huts" data-p="huts">Huts &amp; hotels</a></li><li><a href="#/views" data-p="views">Views</a></li><li><a href="#/practical" data-p="practical">Practical</a></li></ul></div></nav>
+<main>
+<div class="page" data-page="home">
 <header class="hero" id="top">
   <img src="assets/img/bocchette-alte.jpg" alt="Brenta Dolomites towers above the clouds">
   <div class="in">
-    <h1>Ice &amp; Iron</h1>
+    <h1>Ice <i>&amp;</i> Iron</h1>
     <p>Eight days from the glaciers of the Ötztal to the via ferratas of the Brenta Dolomites, finishing at Lake Garda.</p>
     <div class="meta"><span>Alex + Cata</span><span>Early July</span><span>Guided by Sigi</span></div>
   </div>
 </header>
+<section class="home"><div class="in"><div class="tiles"><a class="tile" href="#/overview"><img loading="lazy" src="assets/img/hero-brandenburger.jpg" alt=""><span><b>Overview</b><small>The plan, timing and price</small></span></a><a class="tile" href="#/days"><img loading="lazy" src="assets/img/bocchette-ledge.jpg" alt=""><span><b>Day by day</b><small>8 days, each with its own map</small></span></a><a class="tile" href="#/map"><img loading="lazy" src="assets/img/vernagtferner.jpg" alt=""><span><b>Map</b><small>The whole route and the altitude</small></span></a><a class="tile" href="#/stats"><img loading="lazy" src="assets/img/fluchtkogel.jpg" alt=""><span><b>Distances</b><small>Every day compared, with difficulty</small></span></a><a class="tile" href="#/huts"><img loading="lazy" src="assets/img/tuckett.jpg" alt=""><span><b>Huts &amp; hotels</b><small>Where you sleep each night</small></span></a><a class="tile" href="#/views"><img loading="lazy" src="assets/img/campanil-basso.jpg" alt=""><span><b>Views</b><small>Glaciers, ledges and the lake</small></span></a><a class="tile" href="#/practical"><img loading="lazy" src="assets/img/riva.jpg" alt=""><span><b>Practical</b><small>What's included, extras, Arco, sources</small></span></a></div></div></section>
+</div>
 
-<section class="intro"><div class="in">
-  <p class="label">The plan</p>
-  <p class="lead" style="margin-top:14px">Three days roped up on Austria's biggest glaciers, three days on the iron ladders of the Brenta, then pasta by the lake.</p>
+<div class="page" data-page="overview"><section><div class="in">
+  <div class="shead"><h2>The <i>plan</i></h2><p>Three days roped up on Austria's biggest glaciers, three days on the iron ladders of the Brenta, then pasta by the lake. We leave from Munich.</p></div>
   <div class="stats">
     <div><b>8</b><span>days, 7 nights</span></div>
     <div><b>3,494 m</b><span>Fluchtkogel summit</span></div>
     <div><b>6</b><span>huts &amp; hotels</span></div>
     <div><b>2</b><span>countries, 1 guide</span></div>
   </div>
-</div></section>
-
-<section id="route"><div class="in">
-  <div class="shead"><h2>Route</h2><p>Tap a day to zoom in. Solid lines are on foot, dashed lines are taxi, train or cable car. Lines join real hut and summit coordinates, so they show the shape of each day, not the exact trail.</p></div>
-  <div class="legend"><span><i style="background:#4f86b8"></i>Glacier</span><span><i style="background:#c8643c"></i>Ferrata</span><span><i style="background:#3f9a90"></i>Lake Garda option</span><span><i class="dash"></i>Transfer or lift</span></div>
-  <div class="mapwrap"><div class="daylist" id="daylist"></div><div id="map" aria-label="Route map"></div></div>
-</div></section>
-
-<section id="alt"><div class="in">
-  <div class="shead"><h2>Altitude</h2><p>Bars show each day's high point and the line shows where you sleep. The big jump comes early: from Munich at 520 m to 3,277 m by night two.</p></div>
-  <div class="elev elev-scroll"><svg id="elev" viewBox="0 0 1200 460" role="img" aria-label="Altitude per day"></svg></div>
-  <div class="elev-tip" id="tip"></div>
-</div></section>
-
-<section id="days"><div class="in">
-  <div class="shead"><h2>Day by day</h2><p>Distances, times and metres are my estimates from published hut-to-hut data. Sigi didn't give any, and he'll set the real pace on the day. Sources are at the bottom.</p></div>
-  <div id="daycards"></div>
-</div></section>
-
-<section id="stays"><div class="in">
-  <div class="shead"><h2>Huts &amp; hotels</h2><p>Half board every night. In the huts expect shared rooms, big dinners and lights out around 22:00. Tap any photo to see it larger.</p></div>
-  <div id="staylist"></div>
-</div></section>
-
-<section id="views"><div class="in">
-  <div class="shead"><h2>On the way</h2><p>The glaciers, ledges and lake in between.</p></div>
-  <div class="gallery" id="gallery"></div>
-</div></section>
-
-<section id="info"><div class="in">
-  <div class="shead"><h2>Price &amp; practicalities</h2><p>Sigi's quote, what it covers, when to go, and the Lake Garda finish.</p></div>
+  <ol class="glance" id="glance"></ol>
   <div class="prac">
     <div>
       <p class="label">Sigi's quote</p>
@@ -232,14 +278,6 @@ footer li{break-inside:avoid;margin-bottom:3px}
       <p class="note">Not in the quote, so budget separately: getting to Munich, lunches and drinks, hut showers, cable car tickets, a possible extra night in Madonna, tips, and travel insurance with mountain rescue cover.</p>
     </div>
     <div>
-      <h4>Included</h4>
-      <ul class="plain">
-        <li>Certified mountain guide (Sigi) for all 8 days</li>
-        <li>All 7 nights with half board (dinner and breakfast)</li>
-        <li>Rental gear: harness, helmet, ferrata set, crampons, ice axe, rope</li>
-        <li>Organisation and hut bookings (the Brenta huts fill first)</li>
-        <li class="x">Not included: transfers, ~€250 per person</li>
-      </ul>
       <h4>When to go</h4>
       <div class="cal">
         <div>June<small>Snow on ledges, some huts shut</small></div>
@@ -248,6 +286,60 @@ footer li{break-inside:avoid;margin-bottom:3px}
         <div>September<small>Quieter, icier glaciers</small></div>
       </div>
       <p class="note">Next step: send Sigi your start date so he can book, starting with the Brenta huts.</p>
+      <p><a class="go" href="#/days">See the days →</a></p>
+    </div>
+  </div>
+</div></section></div>
+
+<div class="page" data-page="days"><section><div class="in">
+  <div class="shead"><h2>Day by <i>day</i></h2><p>Each day has its own map and stats. Distances, times and metres are my estimates from published hut-to-hut data, since Sigi didn't give any. He'll set the real pace on the day.</p></div>
+  <div class="daytabs" id="daytabs"></div>
+  <div id="daycards"></div>
+  <div class="daynav" id="daynav"></div>
+</div></section></div>
+
+<div class="page" data-page="map"><section><div class="in">
+  <div class="shead"><h2>The <i>route</i></h2><p>Tap a day to zoom in. Solid lines are on foot, dashed lines are road, train or cable car. Walking lines join real hut and summit coordinates, so they show the shape of each day, not the exact trail.</p></div>
+  <div class="legend"><span><i style="background:#4f86b8"></i>Glacier</span><span><i style="background:#c8643c"></i>Ferrata</span><span><i style="background:#3f9a90"></i>Lake Garda option</span><span><i class="dash"></i>Transfer or lift</span></div>
+  <div class="mapwrap"><div class="daylist" id="daylist"></div><div id="map" aria-label="Route map"></div></div>
+</div></section>
+<section id="alt"><div class="in">
+  <div class="shead"><h2>Up <i>&amp;</i> down</h2><p>Bars show each day's high point and the line shows where you sleep. The big jump comes early: from Munich at 520 m to 3,277 m by night two. Tap a bar to open that day.</p></div>
+  <div class="elev elev-scroll"><svg id="elev" viewBox="0 0 1200 460" role="img" aria-label="Altitude per day"></svg></div>
+  <div class="elev-tip" id="tip"></div>
+</div></section></div>
+
+<div class="page" data-page="stats"><section><div class="in">
+  <div class="shead"><h2>Distances <i>&amp;</i> difficulty</h2><p>All eight days side by side. All figures are estimates; tap a row to open the day.</p></div>
+  <div class="tblwrap"><table class="cmp" id="cmp"></table></div>
+  <p class="est" style="margin-top:14px">Difficulty is my 1–5 scale: 1 is an easy walk or a travel day, 5 is long, exposed and technical. Sources are on the Practical page.</p>
+</div></section></div>
+
+<div class="page" data-page="huts"><section><div class="in">
+  <div class="shead"><h2>Huts <i>&amp;</i> hotels</h2><p>Half board every night. In the huts expect shared rooms, big dinners and lights out around 22:00. Tap any photo to see it larger.</p></div>
+  <div id="staylist"></div>
+</div></section></div>
+
+<div class="page" data-page="views"><section><div class="in">
+  <div class="shead"><h2>On the <i>way</i></h2><p>The glaciers, ledges and lake in between.</p></div>
+  <div class="gallery" id="gallery"></div>
+</div></section></div>
+
+<div class="page" data-page="practical"><section><div class="in">
+  <div class="shead"><h2>The <i>details</i></h2><p>What Sigi's quote covers, what it doesn't, what to bring, and the Lake Garda finish.</p></div>
+  <div class="prac">
+    <div>
+      <h4>Included</h4>
+      <ul class="plain">
+        <li>Certified mountain guide (Sigi) for all 8 days</li>
+        <li>All 7 nights with half board (dinner and breakfast)</li>
+        <li>Rental gear: harness, helmet, ferrata set, crampons, ice axe, rope</li>
+        <li>Organisation and hut bookings (the Brenta huts fill first)</li>
+        <li class="x">Not included: transfers, ~€250 per person</li>
+      </ul>
+      <p class="note">Not in the quote, so budget separately: getting to Munich, lunches and drinks, hut showers, cable car tickets, a possible extra night in Madonna, tips, and travel insurance with mountain rescue cover.</p>
+    </div>
+    <div>
       <h4>Bring</h4>
       <p style="font-size:15px;color:#3c3c38">Stiff boots that take crampons, a hut sleeping-bag liner, warm layers for dawn on the glacier, sun cream, glacier glasses, ferrata gloves, earplugs, and cash for the huts.</p>
     </div>
@@ -256,7 +348,7 @@ footer li{break-inside:avoid;margin-bottom:3px}
     <figure><img loading="lazy" src="assets/img/riva.jpg" alt="Riva del Garda on Lake Garda"></figure>
     <div>
       <p class="label">Option B · Days 7–8</p>
-      <h3 style="margin-top:6px">Finish at the lake</h3>
+      <h3 style="margin-top:6px">Finish at <i>the lake</i></h3>
       <p>After the Bocchette, take a taxi from Madonna to Arco (about 1 h 15) for a hotel night and dinner out. On Day 8 climb the short Ferrata Colodri, which ends in the middle of Arco. In the afternoon take a taxi to Rovereto and a direct train to Munich.</p>
       <div class="vs">
         <div><b>A · Back via Madonna</b>Down to Tuckett, or on to Cima Grostè and the cable car. A long drive to Munich on Day 8, and maybe an extra night first.</div>
@@ -265,7 +357,6 @@ footer li{break-inside:avoid;margin-bottom:3px}
     </div>
   </div>
 </div></section>
-
 <footer><div class="in">
   <div class="cols">
     <div>
@@ -279,6 +370,8 @@ footer li{break-inside:avoid;margin-bottom:3px}
     </div>
   </div>
 </div></footer>
+</div>
+</main>
 
 <div class="lightbox" id="lb"><img alt=""><p></p></div>
 <script src="assets/leaflet.js"></script>
@@ -305,47 +398,67 @@ const P={
  cimaGroste:[46.1983,10.9052,'Cima Grostè','2,901 m'],
  arco:[45.9182,10.8861,'Arco','91 m · Lake Garda option'],
  colodri:[45.9300,10.8884,'Monte Colodri','~400 m · ferrata'],
- rovereto:[45.8908,11.0339,'Rovereto station','train to Munich']
+ rovereto:[45.8908,11.0339,'Rovereto station','train to Munich'],
+ casinei:[46.1998,10.8581,'Rifugio Casinei','1,825 m'],
+ vallesinella:[46.2078,10.8464,'Vallesinella','~1,500 m · road end']
 };
 const pts=k=>k.map(x=>[P[x][0],P[x][1]]);
 // ---------- days ----------
 const DAYS=[
-{n:1,title:'Into the ice',short:'Munich → Vernagthütte',type:'trail',col:C.ice,
- route:'Taxi from Munich (or arrive the day before) to Vent. Chairlift up, then the Seuffertweg, a balcony path high above the Rofental with the Kreuzkamm opposite, via the Breslauer Hütte to the Vernagthütte.',
- legs:[{p:['munich','vent'],t:'move'},{p:['vent','lift'],t:'move'},{p:['lift','breslauer','vernagt'],t:'foot'}],
+{n:1,title:'Into the <i>ice</i>',from:'Munich',to:'Vernagthütte',short:'Munich → Vernagthütte',type:'trail',col:C.ice,
+ route:'Taxi from Munich (or arrive the day before) to Vent, about 3–3.5 h. Chairlift up, then the Seuffertweg, a balcony path high above the Rofental, via the Breslauer Hütte to the Vernagthütte.',
+ legs:[{road:'munich-vent',t:'move'},{p:['vent','lift'],t:'move'},{p:['lift','breslauer','vernagt'],t:'foot'}],
+ start:'munich',end:'vernagt',way:['vent','breslauer'],inset:['vent','lift','breslauer','vernagt'],
  km:'~10',up:'+700',down:'−330',hrs:'~4 h',terrain:['Trail','Chairlift','Transfer ~3.5 h'],diff:2,diffTxt:'Warm-up',sleep:2755,high:2864,stay:'Vernagthütte',img:'vernagt.jpg',cap:'Vernagthütte, 2,755 m'},
-{n:2,title:'Fluchtkogel 3,494',short:'Vernagthütte → Brandenburger Haus',type:'glacier',col:C.ice,hard:true,
- route:'Roped up on the Guslarferner, then up to the Fluchtkogel summit with views from the Wildspitze to the Ortler and Bernina. Down to the Oberer Guslarjoch and across the flat Kesselwandferner to the "glacier castle", the highest DAV hut.',
+{n:2,title:'Fluchtkogel <i>summit</i>',from:'Vernagthütte',to:'Brandenburger Haus',short:'Vernagthütte → Brandenburger Haus',type:'glacier',col:C.ice,hard:true,
+ route:'Roped up on the Guslarferner, then up to the Fluchtkogel (3,494 m) with views from the Wildspitze to the Ortler. Down to the Oberer Guslarjoch and across the flat Kesselwandferner to the highest hut of the German Alpine Club.',
  legs:[{p:['vernagt','fluchtkogel','brandenburger'],t:'foot'}],
+ start:'vernagt',end:'brandenburger',way:['fluchtkogel'],
  km:'~5.5',up:'+800',down:'−280',hrs:'5–6 h',terrain:['Glacier','Crampons + rope','Summit 3,494 m'],diff:4,diffTxt:'Hard: first big glacier day',sleep:3277,high:3494,stay:'Brandenburger Haus',img:'fluchtkogel.jpg',cap:'Fluchtkogel from the Kesselwandferner'},
-{n:3,title:'The long descent',short:'Brandenburger Haus → Vent',type:'glacier',col:C.ice,
- route:'A morning summit near the hut (Sigi doesn\'t name it, but the Dahmannspitze, 3,401 m, is the usual short one), then down across the crevassed Kesselwandferner, past the Hochjoch-Hospiz and out along the Rofental to Vent.',
- alt:'<b>Gentler version:</b> stop at the Hochjoch-Hospiz (2,420 m, about 3–3.5 h). Walk the last 2.5 h to Vent on Day 4 morning and skip the night in Vent.',
- legs:[{p:['brandenburger','dahmann','brandenburger'],t:'foot'},{p:['brandenburger','hochjoch','vent'],t:'foot'}],
+{n:3,title:'The long <i>descent</i>',from:'Brandenburger Haus',to:'Vent',short:'Brandenburger Haus → Vent',type:'glacier',col:C.ice,
+ route:'A morning summit near the hut (Sigi doesn\'t name it; the Dahmannspitze, 3,401 m, is the usual short one), then down across the crevassed Kesselwandferner, past the Hochjoch-Hospiz and out along the Rofental to Vent.',
+ alt:'<b>Gentler version (dashed on the map):</b> stop at the Hochjoch-Hospiz (2,420 m) after about 3–3.5 h and walk the last 2.5 h to Vent on the morning of Day 4.',
+ legs:[{p:['brandenburger','dahmann','brandenburger'],t:'foot'},{p:['brandenburger','hochjoch'],t:'foot'},{p:['hochjoch','vent'],t:'foot'},{p:['hochjoch','vent'],t:'foot',alt:true,label:'Alt: walk out on Day 4'}],
+ start:'brandenburger',end:'vent',way:['dahmann','hochjoch'],altEnd:'hochjoch',
  km:'~15',up:'+200',down:'−1,580',hrs:'6–7 h',terrain:['Glacier','Long descent','Peak ~3,400 m'],diff:4,diffTxt:'Long: 1,500 m of downhill',sleep:1895,high:3401,stay:'Vent (or Hochjoch-Hospiz)',img:'kesselwand-icefall.jpg',cap:'Kesselwandferner icefall'},
-{n:4,title:'Switch ranges',short:'Vent → Madonna di Campiglio',type:'transfer',col:C.move,
- route:'Rest day on wheels: from the Tirol over the Alps into Trentino, then evening in Madonna di Campiglio, the smart ski village under the Brenta Dolomites. Aperitivo time.',
- legs:[{p:['vent','madonna'],t:'move'}],
- km:'~230 by road',up:'—',down:'—',hrs:'~4 h drive',terrain:['Transfer','Rest'],diff:1,diffTxt:'Rest',sleep:1550,high:1895,stay:'Hotel, Madonna di Campiglio',img:'madonna.jpg',cap:'Piazza Righi, Madonna di Campiglio'},
-{n:5,title:'First iron',short:'Passo Grostè → Rifugio Tuckett',type:'ferrata',col:C.iron,
- route:'Grostè gondola up to the pass, then the Sentiero Benini, Sigi\'s "easy ferrata": ledges under Cima Falkner at around 2,900 m, iron ladders down to the Bocca di Tuckett, then a short snowfield to the Tuckett hut.',
- legs:[{p:['madonna','grosteLift','groste'],t:'move'},{p:['groste','boccaTuckett','tuckett'],t:'foot'}],
+{n:4,title:'Switch <i>ranges</i>',from:'Vent',to:'Madonna di Campiglio',short:'Vent → Madonna di Campiglio',type:'transfer',col:C.move,
+ route:'A rest day on wheels, from the Tirol across the Alps into Trentino. Evening in Madonna di Campiglio, the smart village under the Brenta Dolomites. Aperitivo time.',
+ legs:[{road:'vent-madonna',t:'move'}],
+ start:'vent',end:'madonna',way:[],
+ km:'~175 km by road',up:'—',down:'—',hrs:'~3–3.5 h drive',terrain:['Transfer','Rest'],diff:1,diffTxt:'Rest',sleep:1550,high:1895,stay:'Hotel, Madonna di Campiglio',img:'madonna.jpg',cap:'Piazza Righi, Madonna di Campiglio'},
+{n:5,title:'First <i>iron</i>',from:'Madonna (Passo Grostè)',to:'Rifugio Tuckett',short:'Passo Grostè → Rifugio Tuckett',type:'ferrata',col:C.iron,
+ route:'Grostè gondola up to the pass, then the Sentiero Benini, Sigi\'s "easy ferrata": ledges under Cima Falkner at about 2,900 m, iron ladders down to the Bocca di Tuckett, then a short snowfield to the hut.',
+ legs:[{road:'madonna-grosteLift',t:'move'},{p:['grosteLift','groste'],t:'move'},{p:['groste','boccaTuckett','tuckett'],t:'foot'}],
+ start:'madonna',end:'tuckett',way:['grosteLift','groste','boccaTuckett'],
  km:'~7',up:'+470',down:'−640',hrs:'4–4.5 h',terrain:['Ferrata (B)','Cable car','Ladders'],diff:3,diffTxt:'Moderate, airy',sleep:2272,high:2900,stay:'Rifugio Tuckett',img:'tuckett-castelletto.jpg',cap:'Rifugio Tuckett and the Castelletto'},
-{n:6,title:'Via SOSAT',short:'Tuckett → Rifugio Alimonta',type:'ferrata',col:C.iron,
+{n:6,title:'Via <i>SOSAT</i>',from:'Rifugio Tuckett',to:'Rifugio Alimonta',short:'Tuckett → Rifugio Alimonta',type:'ferrata',col:C.iron,
  route:'Along the rock terraces of the Punte di Campiglio, with one steep wall of ladders and cables down into a gorge. Then views of Cima Tosa and the Crozzon and a final climb to the Alimonta, right under the Bocchette.',
  legs:[{p:['tuckett','alimonta'],t:'foot'}],
+ start:'tuckett',end:'alimonta',way:[],
  km:'~6',up:'+450',down:'−150',hrs:'3–4 h',terrain:['Ferrata (B)','Long ladders','Scree'],diff:3,diffTxt:'Moderate, shorter day',sleep:2580,high:2600,stay:'Rifugio Alimonta',img:'alimonta.jpg',cap:'Rifugio Alimonta, 2,580 m'},
-{n:7,title:'Bocchette Alte',short:'Alimonta → Tuckett / Madonna',type:'ferrata',col:C.iron,hard:true,
- route:'The highest and hardest Brenta ferrata. Ledges cut into the walls at about 3,000 m on the Cengia Garbari across Cima Brenta, the "Scala degli amici" ladders, and lots of exposure. Then down to Tuckett, or on to Cima Grostè and the cable car to Madonna.',
- alt:'<b>Option B:</b> after the descent, take a taxi to Arco on Lake Garda for a hotel night and dinner out (about 1 h 15).',
- legs:[{p:['alimonta','cimaBrenta','boccaTuckett','tuckett'],t:'foot'},{p:['boccaTuckett','cimaGroste','groste'],t:'foot',opt:true},{p:['groste','grosteLift','madonna'],t:'move',opt:true},{p:['madonna','arco'],t:'move',lake:true}],
- km:'~8',up:'+500',down:'−800',hrs:'6–6.5 h (8+ via Grostè)',terrain:['Ferrata (C)','~3,000 m','Very exposed','Possible snow'],diff:5,diffTxt:'Crux of the trip',sleep:2272,high:3020,stay:'Tuckett / Madonna / Arco',img:'bocchette-ledge.jpg',cap:'A Brenta ledge on the Bocchette'},
-{n:8,title:'Home, or the lake',short:'→ Munich (via Arco + Rovereto)',type:'lake',col:C.lake,
- route:'<b>Option A:</b> drive from Madonna back to Munich (about 5 h by road), possibly after an extra night. <b>Option B:</b> the short Ferrata Colodri above Arco, which ends right in town. Then a taxi to Rovereto and a direct train to Munich.',
- legs:[{p:['arco','colodri','arco'],t:'foot',lake:true},{p:['arco','rovereto'],t:'move'},{p:['rovereto','munich'],t:'move'}],
- km:'~4 (Colodri)',up:'+300',down:'−300',hrs:'2.5–3 h + ~4.5 h train',terrain:['Ferrata (A/B)','Train','Lake Garda'],diff:2,diffTxt:'Easy finale',sleep:520,high:400,stay:'Home',img:'colodri.jpg',cap:'Monte Colodri above Arco'}
+{n:7,title:'Bocchette <i>Alte</i>',from:'Rifugio Alimonta',to:'Rifugio Tuckett',short:'Alimonta → Tuckett',type:'ferrata',col:C.iron,hard:true,
+ route:'The highest and hardest Brenta ferrata. Ledges cut into the walls at about 3,000 m on the Cengia Garbari across Cima Brenta, the "Scala degli amici" ladders and plenty of exposure. Then down to the Tuckett.',
+ alt:'<b>Alternatives (dashed on the map):</b> carry on to Cima Grostè and take the cable car down to Madonna (8+ h). Or, for Option B, take a taxi from Madonna to Arco on Lake Garda for a hotel night (about 1 h 15).',
+ legs:[{p:['alimonta','cimaBrenta','boccaTuckett','tuckett'],t:'foot'},{p:['boccaTuckett','cimaGroste','groste'],t:'foot',alt:true},{p:['groste','grosteLift'],t:'move',alt:true},{road:'madonna-grosteLift',t:'move',alt:true},{road:'madonna-arco',t:'move',alt:true,lake:true}],
+ start:'alimonta',end:'tuckett',way:['cimaBrenta','boccaTuckett'],altEnd:'groste',fit:['alimonta','cimaBrenta','boccaTuckett','tuckett','cimaGroste','groste'],
+ km:'~8',up:'+500',down:'−800',hrs:'6–6.5 h',terrain:['Ferrata (C)','~3,000 m','Very exposed','Possible snow'],diff:5,diffTxt:'Crux of the trip',sleep:2272,high:3020,stay:'Tuckett / Madonna / Arco',img:'bocchette-ledge.jpg',cap:'A Brenta ledge on the Bocchette'},
+{n:8,title:'Home, or <i>the lake</i>',from:'Rifugio Tuckett',to:'Munich',short:'Tuckett → Munich',type:'transfer',col:C.move,
+ route:'<b>Plan A (solid):</b> walk down from the Tuckett via the Casinei hut to Vallesinella (about 2 h). Then go to Madonna and drive back to Munich, about 5 h by road. Sigi says you may want an extra night in Madonna first.',
+ alt:'<b>Option B (dashed):</b> after a night in Arco, climb the short Ferrata Colodri (2.5–3 h, about +300/−300 m), which ends in town. Then take a taxi to Rovereto and the direct train to Munich (about 4 h).',
+ legs:[{p:['tuckett','casinei','vallesinella'],t:'foot'},{p:['vallesinella','madonna'],t:'move'},{road:'madonna-munich',t:'move'},{p:['arco','colodri','arco'],t:'foot',alt:true,lake:true},{road:'arco-rovereto',t:'move',alt:true},{road:'rovereto-munich',t:'move',alt:true,label:'Train Rovereto → Munich (road shown as a guide)'}],
+ start:'tuckett',end:'munich',way:['madonna','rovereto'],altEnd:'arco',inset:['tuckett','casinei','vallesinella','madonna'],
+ km:'~5 km on foot, ~350 km by road',up:'+50',down:'−770',hrs:'~2 h walk + ~5 h drive',terrain:['Trail','Transfer','Option: Ferrata (A/B)'],diff:1,diffTxt:'Easy, long travel',sleep:520,high:2272,stay:'Home',img:'colodri.jpg',cap:'Option B: Monte Colodri above Arco'}
 ];
 // ---------- map ----------
+const ROADS={"munich-vent": [[48.1407, 11.5561], [48.1436, 11.5488], [48.1393, 11.5472], [48.1401, 11.534], [48.1333, 11.5333], [48.1218, 11.5188], [48.1104, 11.5173], [48.0958, 11.4887], [48.0782, 11.4874], [48.0624, 11.4741], [48.0384, 11.4329], [48.0202, 11.4188], [48.0105, 11.4179], [47.998, 11.4274], [47.9895, 11.4292], [47.9673, 11.4128], [47.9492, 11.4113], [47.9388, 11.4034], [47.9262, 11.4022], [47.9151, 11.3948], [47.8798, 11.3994], [47.8576, 11.3891], [47.8472, 11.3772], [47.8246, 11.3618], [47.7989, 11.3607], [47.7884, 11.3565], [47.7628, 11.331], [47.7546, 11.3292], [47.7412, 11.3317], [47.7261, 11.3245], [47.713, 11.3281], [47.7039, 11.3249], [47.6745, 11.2836], [47.6562, 11.2336], [47.6425, 11.2169], [47.6314, 11.2109], [47.6121, 11.1823], [47.6021, 11.1754], [47.588, 11.1754], [47.5765, 11.1631], [47.5687, 11.1346], [47.5627, 11.1251], [47.5518, 11.129], [47.5386, 11.1178], [47.5244, 11.1226], [47.5147, 11.1082], [47.4972, 11.1018], [47.484, 11.1213], [47.4899, 11.2056], [47.4892, 11.2211], [47.4816, 11.2453], [47.4748, 11.2549], [47.4542, 11.2705], [47.4385, 11.2602], [47.4162, 11.2572], [47.3969, 11.2674], [47.385, 11.2511], [47.3815, 11.24], [47.3647, 11.2315], [47.3518, 11.2197], [47.3443, 11.203], [47.3299, 11.1874], [47.3236, 11.1709], [47.3104, 11.1547], [47.3156, 11.1281], [47.3103, 11.1334], [47.3168, 11.1214], [47.3155, 11.1143], [47.3195, 11.0961], [47.311, 11.1021], [47.3041, 11.085], [47.2844, 10.9788], [47.2725, 10.9523], [47.2731, 10.9266], [47.2694, 10.9058], [47.2598, 10.874], [47.2408, 10.8458], [47.2336, 10.8484], [47.2264, 10.8607], [47.221, 10.8606], [47.2182, 10.8665], [47.2088, 10.8726], [47.2027, 10.8984], [47.1955, 10.907], [47.1845, 10.909], [47.1844, 10.9053], [47.1784, 10.9121], [47.1573, 10.9101], [47.1442, 10.9173], [47.1382, 10.9256], [47.1311, 10.9229], [47.1269, 10.9251], [47.11, 10.9424], [47.1065, 10.9534], [47.0946, 10.9545], [47.0722, 10.971], [47.0597, 10.9651], [47.0502, 10.9661], [47.0336, 10.9901], [47.019, 10.9956], [47.0036, 11.0094], [46.9827, 11.0122], [46.9661, 11.0073], [46.9543, 11.0126], [46.9516, 11.0099], [46.9481, 11.024], [46.9423, 11.0275], [46.9344, 11.0189], [46.9229, 10.9873], [46.9073, 10.9734], [46.9052, 10.9674], [46.86, 10.9147]], "vent-madonna": [[46.86, 10.9147], [46.9052, 10.9674], [46.9073, 10.9734], [46.9229, 10.9873], [46.9344, 11.0189], [46.9402, 11.0272], [46.9339, 11.0247], [46.9356, 11.0336], [46.9352, 11.0315], [46.9335, 11.0366], [46.9246, 11.0437], [46.8858, 11.0382], [46.8933, 11.0433], [46.8902, 11.0432], [46.8942, 11.0474], [46.9023, 11.0493], [46.9039, 11.0525], [46.9213, 11.0531], [46.9182, 11.0761], [46.9104, 11.0893], [46.901, 11.0923], [46.9054, 11.097], [46.9028, 11.1017], [46.8901, 11.1116], [46.8871, 11.1101], [46.8894, 11.1125], [46.8855, 11.1109], [46.8952, 11.1223], [46.8817, 11.1128], [46.8879, 11.1266], [46.8964, 11.1299], [46.8907, 11.131], [46.8912, 11.1348], [46.8856, 11.1393], [46.8821, 11.1506], [46.8788, 11.1525], [46.8804, 11.1642], [46.8596, 11.157], [46.8584, 11.1617], [46.855, 11.1606], [46.8434, 11.1689], [46.833, 11.1712], [46.8346, 11.168], [46.8302, 11.1712], [46.833, 11.1668], [46.8302, 11.1692], [46.8225, 11.1965], [46.818, 11.2378], [46.8147, 11.2438], [46.8107, 11.2427], [46.8081, 11.2454], [46.7927, 11.2301], [46.7866, 11.2309], [46.7756, 11.2186], [46.7654, 11.2145], [46.7583, 11.2072], [46.7478, 11.2081], [46.7367, 11.1996], [46.7279, 11.1997], [46.7217, 11.1915], [46.7081, 11.1874], [46.6963, 11.1755], [46.6954, 11.1686], [46.6917, 11.1712], [46.6827, 11.1667], [46.6736, 11.1729], [46.668, 11.1664], [46.6696, 11.1595], [46.6618, 11.1598], [46.6565, 11.1484], [46.658, 11.1449], [46.6457, 11.1455], [46.6388, 11.1514], [46.6345, 11.145], [46.6238, 11.1481], [46.6174, 11.1418], [46.5997, 11.1578], [46.592, 11.1568], [46.5905, 11.1603], [46.5858, 11.16], [46.5779, 11.1659], [46.5709, 11.1612], [46.5536, 11.1672], [46.551, 11.1637], [46.553, 11.1562], [46.5506, 11.1404], [46.538, 11.1273], [46.5494, 11.1333], [46.5405, 11.1227], [46.5415, 11.1143], [46.5391, 11.1113], [46.5261, 11.11], [46.5022, 11.1117], [46.5015, 11.1285], [46.4959, 11.1286], [46.4756, 11.1469], [46.4726, 11.1434], [46.4686, 11.1474], [46.4656, 11.1439], [46.4561, 11.1456], [46.4489, 11.1406], [46.4421, 11.1407], [46.4439, 11.1345], [46.4395, 11.133], [46.4421, 11.1282], [46.437, 11.125], [46.4428, 11.1238], [46.4468, 11.12], [46.4455, 11.1172], [46.4427, 11.1175], [46.4375, 11.1078], [46.431, 11.1075], [46.4262, 11.0948], [46.3906, 11.0588], [46.3951, 11.0407], [46.3939, 11.0335], [46.3963, 11.0391], [46.397, 11.0364], [46.3922, 11.025], [46.399, 11.0165], [46.3998, 11.0097], [46.3961, 11.0144], [46.3936, 11.0131], [46.3948, 11.0033], [46.3862, 10.979], [46.367, 10.948], [46.3643, 10.9351], [46.3342, 10.8907], [46.3283, 10.8715], [46.3239, 10.8756], [46.3196, 10.8746], [46.322, 10.8721], [46.3171, 10.8741], [46.3176, 10.8677], [46.3132, 10.8736], [46.3085, 10.8736], [46.3113, 10.8714], [46.3106, 10.8651], [46.3095, 10.8699], [46.3044, 10.8702], [46.3073, 10.8673], [46.3056, 10.8634], [46.3056, 10.8668], [46.3006, 10.8681], [46.2875, 10.8661], [46.2784, 10.8583], [46.2713, 10.8622], [46.2657, 10.8613], [46.2596, 10.8536], [46.2462, 10.8451], [46.2406, 10.8362], [46.2359, 10.8349], [46.2329, 10.8197], [46.2242, 10.8181], [46.2189, 10.8222], [46.227, 10.8263]], "madonna-arco": [[46.227, 10.8263], [46.2196, 10.8219], [46.209, 10.8208], [46.1975, 10.7961], [46.197, 10.8006], [46.1951, 10.7952], [46.1945, 10.7975], [46.1884, 10.7775], [46.1866, 10.7813], [46.1856, 10.7766], [46.1833, 10.777], [46.1872, 10.7749], [46.1865, 10.7712], [46.1798, 10.7714], [46.1683, 10.7628], [46.143, 10.7696], [46.1378, 10.7682], [46.1171, 10.7554], [46.1076, 10.7406], [46.0905, 10.729], [46.0871, 10.7223], [46.0812, 10.7218], [46.0684, 10.7114], [46.0609, 10.7173], [46.0505, 10.7198], [46.0413, 10.7366], [46.0509, 10.7744], [46.0541, 10.8285], [46.0512, 10.8455], [46.041, 10.8514], [46.0345, 10.8704], [46.0408, 10.8796], [46.0452, 10.8957], [46.0576, 10.9089], [46.0614, 10.9211], [46.0535, 10.9277], [46.05, 10.938], [46.0441, 10.9418], [46.0474, 10.9406], [46.0444, 10.9448], [46.0466, 10.9422], [46.0472, 10.9522], [46.0169, 10.9419], [46.0038, 10.9326], [46.001, 10.9252], [45.9855, 10.9269], [45.9794, 10.9233], [45.9759, 10.9255], [45.9666, 10.9222], [45.9606, 10.9128], [45.9244, 10.894], [45.9182, 10.8861]], "arco-rovereto": [[45.9182, 10.8861], [45.9205, 10.8909], [45.9071, 10.9025], [45.8929, 10.8943], [45.8886, 10.8867], [45.8786, 10.8878], [45.8764, 10.9047], [45.8685, 10.9069], [45.868, 10.9144], [45.8576, 10.9211], [45.8541, 10.9365], [45.8546, 10.9561], [45.8421, 10.9788], [45.8471, 10.9999], [45.8639, 11.0034], [45.8803, 11.0318], [45.8907, 11.0342]], "rovereto-munich": [[45.8907, 11.0342], [45.9087, 11.0362], [45.9115, 11.0394], [45.914, 11.0355], [45.9171, 11.0372], [45.9148, 11.0389], [45.9277, 11.0599], [45.9279, 11.0795], [45.9464, 11.1], [45.9584, 11.1057], [45.9817, 11.1092], [45.9979, 11.1205], [46.0303, 11.1218], [46.0514, 11.1093], [46.0637, 11.1103], [46.0864, 11.1047], [46.1028, 11.0907], [46.1288, 11.0823], [46.1579, 11.0934], [46.1888, 11.1178], [46.2039, 11.1368], [46.2238, 11.1475], [46.2463, 11.2074], [46.2564, 11.2209], [46.2718, 11.2332], [46.2912, 11.2391], [46.3304, 11.275], [46.3614, 11.2894], [46.394, 11.2955], [46.4262, 11.3157], [46.4388, 11.3171], [46.4563, 11.3045], [46.4649, 11.3062], [46.4855, 11.3305], [46.4914, 11.3592], [46.4947, 11.4069], [46.4894, 11.4253], [46.4933, 11.4386], [46.5141, 11.4764], [46.5504, 11.5139], [46.5614, 11.5145], [46.5688, 11.5223], [46.5851, 11.5245], [46.596, 11.5329], [46.6183, 11.5418], [46.6344, 11.5602], [46.6443, 11.5841], [46.652, 11.5916], [46.659, 11.6068], [46.6831, 11.6245], [46.6916, 11.6401], [46.7066, 11.6488], [46.7235, 11.6463], [46.7526, 11.6337], [46.7639, 11.6386], [46.7718, 11.6368], [46.782, 11.6179], [46.7976, 11.604], [46.8161, 11.5394], [46.8289, 11.5361], [46.8605, 11.5061], [46.8864, 11.4298], [46.8907, 11.4246], [46.8999, 11.424], [46.9092, 11.4285], [46.919, 11.4421], [46.9509, 11.4547], [46.964, 11.4649], [46.9835, 11.494], [47.0003, 11.5072], [47.0073, 11.5089], [47.0174, 11.5068], [47.0238, 11.501], [47.0367, 11.4741], [47.0488, 11.4819], [47.0701, 11.481], [47.0871, 11.4588], [47.0977, 11.4624], [47.1121, 11.4515], [47.1202, 11.4488], [47.1356, 11.4499], [47.1536, 11.4427], [47.17, 11.4283], [47.1835, 11.4086], [47.1827, 11.3972], [47.1875, 11.4019], [47.1955, 11.3979], [47.2062, 11.404], [47.2231, 11.3921], [47.2296, 11.3937], [47.2407, 11.3904], [47.2467, 11.3951], [47.2516, 11.3923], [47.2545, 11.3573], [47.2521, 11.3409], [47.264, 11.316], [47.2653, 11.2619], [47.274, 11.2523], [47.2813, 11.2254], [47.2835, 11.2345], [47.2931, 11.209], [47.3005, 11.1999], [47.3098, 11.2022], [47.3181, 11.1985], [47.3391, 11.197], [47.3576, 11.2262], [47.3815, 11.24], [47.385, 11.2511], [47.3969, 11.2674], [47.4162, 11.2572], [47.4278, 11.2608], [47.4385, 11.2602], [47.4542, 11.2705], [47.4772, 11.252], [47.4889, 11.2224], [47.4892, 11.1706], [47.484, 11.1213], [47.4986, 11.1012], [47.5149, 11.1086], [47.5189, 11.1189], [47.5243, 11.1232], [47.5384, 11.1179], [47.551, 11.1293], [47.5607, 11.1252], [47.5651, 11.1275], [47.5765, 11.1631], [47.588, 11.1754], [47.6003, 11.1751], [47.61, 11.1806], [47.6208, 11.1925], [47.6313, 11.2111], [47.6424, 11.2171], [47.6575, 11.2357], [47.6744, 11.2837], [47.7039, 11.3251], [47.7128, 11.3283], [47.7256, 11.3246], [47.7412, 11.3319], [47.7618, 11.3307], [47.7883, 11.3567], [47.8024, 11.3614], [47.8251, 11.3622], [47.8471, 11.3773], [47.8576, 11.3893], [47.8782, 11.3991], [47.9151, 11.3949], [47.9256, 11.4022], [47.9384, 11.4034], [47.9502, 11.4118], [47.9661, 11.4124], [47.9895, 11.4293], [47.9972, 11.428], [48.0111, 11.4179], [48.0209, 11.4194], [48.0391, 11.4342], [48.062, 11.4743], [48.0775, 11.4874], [48.095, 11.4883], [48.1104, 11.5175], [48.1222, 11.5192], [48.1332, 11.5335], [48.1399, 11.5347], [48.1375, 11.5559], [48.1407, 11.5561]], "madonna-munich": [[46.227, 10.8263], [46.2194, 10.8222], [46.2242, 10.8181], [46.2329, 10.8197], [46.2359, 10.8349], [46.2406, 10.8362], [46.246, 10.8449], [46.2596, 10.8536], [46.2657, 10.8613], [46.2713, 10.8622], [46.2784, 10.8583], [46.2875, 10.8661], [46.3013, 10.8681], [46.3056, 10.8668], [46.3056, 10.8634], [46.3073, 10.8673], [46.3044, 10.8702], [46.3095, 10.8699], [46.3105, 10.865], [46.3113, 10.8714], [46.3085, 10.8736], [46.3132, 10.8736], [46.3176, 10.8677], [46.3171, 10.8741], [46.322, 10.8721], [46.3196, 10.8746], [46.3239, 10.8756], [46.3281, 10.8719], [46.3342, 10.8907], [46.3643, 10.9351], [46.367, 10.948], [46.3862, 10.979], [46.3948, 11.0033], [46.3936, 11.0132], [46.3961, 11.0144], [46.3998, 11.0097], [46.399, 11.0165], [46.3922, 11.025], [46.397, 11.0364], [46.3963, 11.0391], [46.3939, 11.0335], [46.3951, 11.0407], [46.3906, 11.0588], [46.4262, 11.0948], [46.431, 11.1075], [46.4375, 11.1078], [46.4468, 11.1199], [46.437, 11.125], [46.4421, 11.1286], [46.4281, 11.1543], [46.4299, 11.1567], [46.4175, 11.1654], [46.4195, 11.1738], [46.4253, 11.1799], [46.4166, 11.1915], [46.4189, 11.2134], [46.4157, 11.2104], [46.4161, 11.2159], [46.425, 11.2139], [46.4344, 11.2274], [46.4437, 11.2316], [46.4345, 11.2321], [46.4353, 11.2356], [46.4291, 11.2316], [46.4308, 11.2356], [46.4264, 11.233], [46.4325, 11.2437], [46.4428, 11.2477], [46.4433, 11.2572], [46.4405, 11.2564], [46.4407, 11.2597], [46.4539, 11.2702], [46.4596, 11.2682], [46.4727, 11.271], [46.4852, 11.2894], [46.4736, 11.3174], [46.477, 11.3185], [46.4763, 11.3209], [46.4735, 11.3178], [46.4783, 11.3193], [46.4849, 11.3289], [46.4914, 11.3592], [46.4947, 11.4096], [46.4894, 11.4253], [46.4933, 11.4386], [46.5137, 11.4758], [46.5504, 11.5139], [46.5614, 11.5145], [46.5688, 11.5223], [46.5851, 11.5245], [46.596, 11.5329], [46.6183, 11.5418], [46.6344, 11.5602], [46.6443, 11.5841], [46.652, 11.5916], [46.659, 11.6068], [46.6823, 11.6237], [46.6905, 11.639], [46.7033, 11.648], [46.7235, 11.6463], [46.7532, 11.6336], [46.7639, 11.6386], [46.7718, 11.6368], [46.782, 11.6179], [46.7976, 11.604], [46.8161, 11.5394], [46.8289, 11.5361], [46.8605, 11.5061], [46.8864, 11.4298], [46.8907, 11.4246], [46.8999, 11.424], [46.9092, 11.4285], [46.919, 11.4421], [46.9509, 11.4547], [46.964, 11.4649], [46.9835, 11.494], [47.0003, 11.5072], [47.0073, 11.5089], [47.0174, 11.5068], [47.0238, 11.501], [47.0367, 11.4741], [47.0488, 11.4819], [47.0701, 11.481], [47.0871, 11.4588], [47.0977, 11.4624], [47.1121, 11.4515], [47.1202, 11.4488], [47.1356, 11.4499], [47.1536, 11.4427], [47.17, 11.4283], [47.1835, 11.4086], [47.1827, 11.3972], [47.1875, 11.4019], [47.1955, 11.3979], [47.2062, 11.404], [47.2231, 11.3921], [47.2296, 11.3937], [47.2407, 11.3904], [47.2467, 11.3951], [47.2516, 11.3923], [47.2545, 11.3573], [47.2521, 11.3409], [47.264, 11.316], [47.2653, 11.2619], [47.274, 11.2523], [47.2813, 11.2254], [47.2835, 11.2345], [47.2931, 11.209], [47.3005, 11.1999], [47.3098, 11.2022], [47.3181, 11.1985], [47.3391, 11.197], [47.3576, 11.2262], [47.3815, 11.24], [47.385, 11.2511], [47.3969, 11.2674], [47.4162, 11.2572], [47.4278, 11.2608], [47.4385, 11.2602], [47.4542, 11.2705], [47.4772, 11.252], [47.4889, 11.2224], [47.4892, 11.1706], [47.484, 11.1213], [47.4986, 11.1012], [47.5149, 11.1086], [47.5189, 11.1189], [47.5243, 11.1232], [47.5384, 11.1179], [47.551, 11.1293], [47.5607, 11.1252], [47.5651, 11.1275], [47.5765, 11.1631], [47.588, 11.1754], [47.6003, 11.1751], [47.61, 11.1806], [47.6208, 11.1925], [47.6313, 11.2111], [47.6424, 11.2171], [47.6575, 11.2357], [47.6744, 11.2837], [47.7039, 11.3251], [47.7128, 11.3283], [47.7256, 11.3246], [47.7412, 11.3319], [47.7618, 11.3307], [47.7883, 11.3567], [47.8024, 11.3614], [47.8251, 11.3622], [47.8471, 11.3773], [47.8576, 11.3893], [47.8782, 11.3991], [47.9151, 11.3949], [47.9256, 11.4022], [47.9384, 11.4034], [47.9502, 11.4118], [47.9661, 11.4124], [47.9895, 11.4293], [47.9972, 11.428], [48.0111, 11.4179], [48.0209, 11.4194], [48.0391, 11.4342], [48.062, 11.4743], [48.0775, 11.4874], [48.095, 11.4883], [48.1104, 11.5175], [48.1222, 11.5192], [48.1332, 11.5335], [48.1399, 11.5347], [48.1375, 11.5559], [48.1407, 11.5561]], "madonna-grosteLift": [[46.227, 10.8263], [46.2263, 10.8262], [46.2254, 10.825], [46.2227, 10.8234], [46.2194, 10.8222], [46.2242, 10.8181], [46.2306, 10.8187], [46.2329, 10.8197], [46.2341, 10.8211], [46.2357, 10.8246], [46.2345, 10.8324], [46.2359, 10.8349], [46.2368, 10.8356]]};
+const geo=l=>l.road?ROADS[l.road]:pts(l.p);
+function legLine(l,d,ll,mini){const move=l.t==='move';const col=l.lake?C.lake:(move?'#3d3d38':(d.type==='transfer'?'#161616':d.col));
+  const w=mini?(move?2.5:4):(move?2.5:5);
+  const g=L.featureGroup();
+  g.addLayer(L.polyline(ll,{color:'#fff',weight:w+4,opacity:l.alt?.5:.85,lineCap:'round',lineJoin:'round',interactive:false}));
+  g.addLayer(L.polyline(ll,{color:col,weight:w,opacity:l.alt?.6:1,dashArray:l.alt?(move?'2 6':'5 8'):(move?'7 6':null),lineCap:'round',lineJoin:'round',interactive:!mini}));
+  return g}
+
 const map=L.map('map',{scrollWheelZoom:false,zoomControl:true,attributionControl:true,zoomSnap:.25}).setView([47.0,10.95],7);
 const topo=L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',{maxZoom:16,subdomains:'abc',attribution:'© OpenStreetMap, SRTM | © OpenTopoMap (CC-BY-SA)'});
 const osm=L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap contributors'});
@@ -353,9 +466,8 @@ topo.addTo(map);let topoErr=0;topo.on('tileerror',()=>{if(++topoErr==6){map.remo
 L.control.layers({'Topo':topo,'Street':osm},null,{position:'topright'}).addTo(map);
 const dayLayers={},footB={};const allB=L.latLngBounds([]);
 const mtnB=L.latLngBounds(pts(['vent','fluchtkogel','brandenburger','arco','rovereto','alimonta']));
-DAYS.forEach(d=>{const g=L.featureGroup();footB[d.n]=L.latLngBounds([]);d.legs.forEach(l=>{if(l.t!=='move'&&!l.lake)footB[d.n].extend(pts(l.p));const col=l.lake?C.lake:(l.t==='move'?C.move:d.col);
-  const line=L.polyline(pts(l.p),{color:col,weight:l.t==='move'?3:6,opacity:.95,dashArray:l.t==='move'?'8 9':(l.opt?'2 9':null),lineCap:'round',lineJoin:'round'});
-  line.bindTooltip(`Day ${d.n} · ${d.short}${l.opt?' (option)':''}${l.lake?' (Arco option)':''}`,{sticky:true});g.addLayer(line)});
+DAYS.forEach(d=>{const g=L.featureGroup();footB[d.n]=L.latLngBounds([]);d.legs.forEach(l=>{const ll=geo(l);if(l.t!=='move'&&!l.lake&&!l.alt)footB[d.n].extend(ll);
+  g.addLayer(legLine(l,d,ll,false).bindTooltip(`Day ${d.n} · ${d.short}${l.alt?' (alternative)':''}`,{sticky:true}));});
   g.addTo(map);dayLayers[d.n]=g;allB.extend(g.getBounds())});
 const keyStops=['munich','vent','breslauer','vernagt','fluchtkogel','brandenburger','hochjoch','madonna','groste','tuckett','alimonta','arco','rovereto'];
 Object.entries(P).forEach(([k,v])=>{const key=keyStops.includes(k);
@@ -372,7 +484,7 @@ const allBtn=document.createElement('button');allBtn.className='on';allBtn.inner
 allBtn.onclick=()=>{focusDay(0)};
 DAYS.forEach(d=>{const b=document.createElement('button');b.dataset.n=d.n;b.innerHTML=`Day ${d.n} · ${d.title.replace(/<[^>]+>/g,'')}<small>${d.short}</small>`;b.onclick=()=>focusDay(d.n);dl.appendChild(b)});
 function focusDay(n){[...dl.children].forEach(b=>b.classList.toggle('on',(b.dataset.n||'0')==n));
-  Object.entries(dayLayers).forEach(([k,g])=>g.eachLayer(l=>l.setStyle({opacity:n==0||k==n?.95:.15})));
+  Object.entries(dayLayers).forEach(([k,g])=>g.eachLayer(gr=>gr.eachLayer(l=>{if(l._bo===undefined)l._bo=l.options.opacity;l.setStyle({opacity:n==0||k==n?l._bo:.1})})));
   if(n==0)map.flyToBounds(mtnB,{padding:[50,40],duration:1});else map.flyToBounds(footB[n].isValid()?footB[n]:dayLayers[n].getBounds(),{padding:[60,60],maxZoom:13,duration:1.1});}
 setTimeout(labels,50);
 // ---------- elevation SVG ----------
@@ -399,23 +511,65 @@ setTimeout(labels,50);
  svg.querySelectorAll('.col').forEach(g=>{const d=DAYS[g.dataset.i];
   const show=e=>{tip.innerHTML=`<b>Day ${d.n} · ${d.title.replace(/<[^>]+>/g,'')}</b><br>High point ~${d.high.toLocaleString('en')} m<br>Sleep ${d.sleep.toLocaleString('en')} m · ${d.stay}<br>${d.hrs} · ${d.up} / ${d.down}`;tip.classList.add('on');const t=e.touches?e.touches[0]:e;tip.style.left=Math.min(t.clientX+14,innerWidth-250)+'px';tip.style.top=(t.clientY+14)+'px'};
   g.addEventListener('mousemove',show);g.addEventListener('touchstart',show,{passive:true});g.addEventListener('mouseleave',()=>tip.classList.remove('on'));
-  g.addEventListener('click',()=>document.getElementById('day'+d.n).scrollIntoView({behavior:'smooth'}))});
+  g.addEventListener('click',()=>{tip.classList.remove('on');location.hash='#/days/'+d.n})});
  addEventListener('scroll',()=>tip.classList.remove('on'),{passive:true});
 })();
 // ---------- day cards ----------
-document.getElementById('daycards').innerHTML=DAYS.map(d=>`
+const nm=k=>P[k][2];
+document.getElementById('daycards').innerHTML=DAYS.map(d=>{
+ const hasAlt=d.legs.some(l=>l.alt),hasMove=d.legs.some(l=>l.t==='move'&&!l.alt),hasFoot=d.legs.some(l=>l.t!=='move'&&!l.alt);
+ return `
 <article class="day ${d.hard?'hard':''}" id="day${d.n}">
- <div>
-  <p class="num">Day ${d.n} · ${d.short}</p>
-  <h3>${d.title}</h3>
-  <p class="route">${d.route}</p>
-  <div class="facts"><div><b>${d.km}</b><span>km</span></div><div><b>${d.up}</b><span>m up</span></div><div><b>${d.down}</b><span>m down</span></div><div><b>${d.hrs}</b><span>moving time</span></div></div>
-  <div class="meta-row"><span><span class="dots">${[1,2,3,4,5].map(k=>`<i class="${k<=d.diff?'f':''}"></i>`).join('')}</span>${d.diff}/5 · ${d.diffTxt}</span>${d.hard?'<span class="hardtag">Hardest day</span>':''}<span>${d.terrain.join(' · ')}</span></div>
-  ${d.alt?`<p class="alt">${d.alt}</p>`:''}
-  <button class="maplink" onclick="focusDay(${d.n});document.getElementById('route').scrollIntoView({behavior:'smooth'})">Show on map</button>
+ <p class="num">Day ${d.n}${d.hard?`<span class="hardtag">${d.diff>=5?'Hardest day':'Big day'}</span>`:''}</p>
+ <h3>${d.title}</h3>
+ <p class="fromto">From <b>${d.from}</b> → to <b>${d.to}</b></p>
+ <div class="day-grid">
+  <div class="day-text">
+   <p class="route">${d.route}</p>
+   ${d.alt?`<p class="alt">${d.alt}</p>`:''}
+   <figure><img loading="lazy" src="assets/img/${d.img}" alt="${d.cap}"></figure><figcaption>${d.cap}</figcaption>
+   <button class="maplink" onclick="location.hash='#/map/${d.n}'">Show on the overview map</button>
+  </div>
+  <div class="day-map">
+   <div class="mini-wrap"><div class="mini" id="mini${d.n}" aria-label="Map of day ${d.n}: ${d.from} to ${d.to}"></div>${d.inset?`<span class="inset-l">Zoomed in: on foot</span><div class="inset" id="inset${d.n}"></div>`:''}</div>
+   <div class="mkey">${hasFoot?`<span><i style="border-color:${d.type==='transfer'?'#161616':d.col}"></i>On foot</span>`:''}${hasMove?'<span><i class="d" style="border-color:#6b6b65"></i>Transfer / lift</span>':''}${hasAlt?'<span><i class="a" style="border-color:#6b6b65"></i>Alternative</span>':''}</div>
+   <dl class="dstats">
+    <div><dt>Start</dt><dd>${d.from}</dd></div><div><dt>End</dt><dd>${d.to}</dd></div><div><dt>Distance</dt><dd>${d.km}${/km/.test(d.km)?'':' km'}</dd></div>
+    <div><dt>Metres up</dt><dd>${d.up}</dd></div><div><dt>Metres down</dt><dd>${d.down}</dd></div><div><dt>Time</dt><dd>${d.hrs}</dd></div>
+    <div><dt>High point</dt><dd>${d.high.toLocaleString('en')} m</dd></div><div><dt>Sleep at</dt><dd>${d.n==8?'Home':d.sleep.toLocaleString('en')+' m'}</dd></div>
+    <div><dt>Difficulty</dt><dd><span class="dots">${[1,2,3,4,5].map(k=>`<i class="${k<=d.diff?'f':''}"></i>`).join('')}</span>${d.diff}/5</dd></div>
+   </dl>
+   <p class="est">${d.diffTxt}. ${d.terrain.join(' · ')}. Stats are estimates. Walking lines join real points but don't trace the exact trail; road lines follow the actual roads.</p>
+  </div>
  </div>
- <div class="pic"><figure class="fade"><img loading="lazy" src="assets/img/${d.img}" alt="${d.cap}"></figure><figcaption>${d.cap}</figcaption></div>
-</article>`).join('');
+</article>`}).join('');
+// ---------- mini maps ----------
+const tileURL='https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png';
+const MINIS=[];
+function miniMap(el,d,fitKeys,isInset){
+ const m=L.map(el,{zoomControl:false,scrollWheelZoom:false,dragging:!L.Browser.mobile&&!isInset,touchZoom:false,doubleClickZoom:!isInset,boxZoom:false,keyboard:false,tap:false,attributionControl:!isInset,zoomSnap:.25});
+ if(!isInset)m.attributionControl.setPrefix(false);
+ const tl=L.tileLayer(tileURL,{maxZoom:16,subdomains:'abc',attribution:'© OpenStreetMap, SRTM | OpenTopoMap'}).addTo(m);
+ let te=0;tl.on('tileerror',()=>{if(++te==6){m.removeLayer(tl);L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'© OpenStreetMap'}).addTo(m)}});
+ m.setView([P[d.start][0],P[d.start][1]],9);
+ const all=L.latLngBounds([]);
+ d.legs.forEach(l=>{const ll=geo(l);legLine(l,d,ll,true).addTo(m);if(!l.alt||l.t!=='move')all.extend(ll)});
+ const dot=(k,o)=>L.circleMarker([P[k][0],P[k][1]],o).addTo(m);
+ if(!isInset){
+  d.way.forEach(k=>dot(k,{radius:4,color:'#161616',weight:1.5,fillColor:'#fff',fillOpacity:1}).bindTooltip(nm(k),{permanent:true,direction:'top',offset:[0,-4],className:'mlab wp'}));
+  if(d.altEnd)dot(d.altEnd,{radius:5,color:'#555',weight:1.5,dashArray:'2 2',fillColor:'#fff',fillOpacity:1}).bindTooltip('Alt: '+nm(d.altEnd),{permanent:true,direction:'bottom',offset:[0,4],className:'mlab alt'});
+ }
+ const sm=dot(d.start,{radius:6,color:'#fff',weight:2,fillColor:'#161616',fillOpacity:1}),em=dot(d.end,{radius:6,color:'#161616',weight:3,fillColor:'#fff',fillOpacity:1});
+ const lab=()=>{if(isInset)return;const W=m.getSize().x;[[sm,'Start · '+nm(d.start),'mlab'],[em,'End · '+nm(d.end),'mlab end']].forEach(([mk,tx,cl])=>{const x=m.latLngToContainerPoint(mk.getLatLng()).x;const r=x<W/2;mk.unbindTooltip();mk.bindTooltip(tx,{permanent:true,direction:r?'right':'left',offset:[r?8:-8,0],className:cl}).openTooltip()})};
+ if(isInset){(d.inset||[]).forEach(k=>{if(k!==d.start&&k!==d.end)dot(k,{radius:3,color:'#161616',weight:1.5,fillColor:'#fff',fillOpacity:1})})}
+ const fb=fitKeys?L.latLngBounds(pts(fitKeys)):all;
+ const fit=()=>{m.invalidateSize();m.fitBounds(fb,{paddingTopLeft:isInset?[12,12]:[L.Browser.mobile?40:70,36],paddingBottomRight:isInset?[12,12]:[L.Browser.mobile?40:70,30],maxZoom:14});lab()};fit();setTimeout(fit,300);
+ MINIS.push({el,fit});
+ return m;
+}
+const mio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;mio.unobserve(e.target);const d=DAYS[+e.target.dataset.i];
+ miniMap(e.target,d,d.fit,false);const ins=document.getElementById('inset'+d.n);if(ins)miniMap(ins,d,d.inset,true);}),{rootMargin:'300px 0px'});
+DAYS.forEach((d,i)=>{const el=document.getElementById('mini'+d.n);el.dataset.i=i;mio.observe(el)});
 // ---------- stays ----------
 const STAYS=[
  {name:'Breslauer Hütte',alt:'2,844 m',when:'Day 1 · lunch stop, not a night',desc:'The first hut on the way up from the Vent chairlift, on a terrace under the Wildspitze. Where the Seuffertweg to the Vernagthütte begins.',
@@ -460,6 +614,39 @@ const SRC=[['alpenvereinaktiv: Breslauer Hütte → Vernagthütte (7 km, 2:15 h,
 ['360gardalife: Ferrata Colodri, Arco','https://360gardalife.com/it/percorsi/arco/via-ferrata/monte-colodri-arco-lago-garda/'],
 ['Coordinates: OpenStreetMap / Nominatim','https://www.openstreetmap.org/']];
 document.getElementById('sources').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('')+'<li>Road and rail times (Munich–Vent ~3.5 h, Vent–Madonna ~4 h, Madonna–Arco ~1 h 15, Rovereto–Munich ~4–4.5 h) are rough estimates.</li>';
+// ---------- overview glance, compare table, day tabs ----------
+const plain=s=>s.replace(/<[^>]+>/g,'');
+document.getElementById('glance').innerHTML=DAYS.map(d=>`<li><a href="#/days/${d.n}"><span>Day ${d.n}</span><b>${plain(d.title)}</b><small>${d.from} → ${d.to}</small></a></li>`).join('');
+const dots=n=>`<span class="dots">${[1,2,3,4,5].map(k=>`<i class="${k<=n?'f':''}"></i>`).join('')}</span>`;
+document.getElementById('cmp').innerHTML=`<thead><tr><th>Day</th><th>From → to</th><th>Distance</th><th>Up</th><th>Down</th><th>Time</th><th>High point</th><th>Sleep at</th><th>Difficulty</th></tr></thead><tbody>`+
+ DAYS.map(d=>`<tr class="${d.hard?'hard':''}" onclick="location.hash='#/days/${d.n}'"><td><b>${d.n}</b></td><td><a href="#/days/${d.n}">${d.from} → ${d.to}</a><small>${d.terrain[0]}</small></td><td>${d.km}${/km/.test(d.km)?'':' km'}</td><td>${d.up}</td><td>${d.down}</td><td>${d.hrs}</td><td>${d.high.toLocaleString('en')} m</td><td>${d.n==8?'Home':d.sleep.toLocaleString('en')+' m'}</td><td>${dots(d.diff)} ${d.diff}/5</td></tr>`).join('')+
+ `</tbody><tfoot><tr><td></td><td>Total on foot (Days 1–7)</td><td>~${DAYS.slice(0,7).reduce((a,d)=>a+(parseFloat(String(d.km).replace(/[^\d.]/g,''))||0)*(/road/.test(d.km)?0:1),0)} km</td><td>+${DAYS.slice(0,7).reduce((a,d)=>a+(parseInt(String(d.up).replace(/[^\d]/g,''))||0),0).toLocaleString('en')}</td><td colspan="5"></td></tr></tfoot>`;
+const tabs=document.getElementById('daytabs');
+tabs.innerHTML=DAYS.map(d=>`<a href="#/days/${d.n}" data-n="${d.n}"><b>Day ${d.n}</b><small>${plain(d.title)}</small></a>`).join('');
+// ---------- router ----------
+const PAGES=[...document.querySelectorAll('.page')];
+let mapShown=false;
+function route(){
+ const h=location.hash.replace(/^#\/?/,'').split('/');let p=h[0]||'home';const sub=+h[1]||0;
+ if(!PAGES.some(x=>x.dataset.page===p)){p=document.getElementById(h[0])?'home':'home'}
+ PAGES.forEach(x=>x.hidden=x.dataset.page!==p);
+ document.body.dataset.page=p;
+ document.querySelectorAll('#nav .pills a').forEach(a=>{const on=a.dataset.p===p;a.classList.toggle('on',on);if(on)a.scrollIntoView({block:'nearest',inline:'center'})});
+ window.scrollTo(0,0);
+ if(p==='days'){const n=sub>=1&&sub<=8?sub:1;
+  DAYS.forEach(d=>document.getElementById('day'+d.n).hidden=d.n!==n);
+  [...tabs.children].forEach(a=>{const on=+a.dataset.n===n;a.classList.toggle('on',on);if(on)tabs.scrollLeft=a.offsetLeft-tabs.clientWidth/2+a.clientWidth/2});
+  const pv=DAYS[n-2],nx=DAYS[n];
+  document.getElementById('daynav').innerHTML=(pv?`<a href="#/days/${pv.n}">← Day ${pv.n}<small>${plain(pv.title)}</small></a>`:'<span></span>')+(nx?`<a class="nx" href="#/days/${nx.n}">Day ${nx.n} →<small>${plain(nx.title)}</small></a>`:`<a class="nx" href="#/huts">Huts &amp; hotels →<small>Where you sleep</small></a>`);
+  requestAnimationFrame(()=>MINIS.forEach(o=>{if(o.el.offsetParent)o.fit()}));
+ }
+ if(p==='map'){requestAnimationFrame(()=>{map.invalidateSize();if(sub)focusDay(sub);else if(!mapShown)map.fitBounds(mtnB,{padding:[60,40]});mapShown=true})}
+ const t={home:'',overview:'Overview',days:'Day by day',map:'Map',stats:'Distances',huts:'Huts & hotels',views:'Views',practical:'Practical'}[p];
+ document.title=(t?t+' · ':'')+'Ice & Iron · Ötztal to Brenta';
+}
+addEventListener('hashchange',route);
+if('scrollRestoration' in history)history.scrollRestoration='manual';
+route();
 document.getElementById('sources').innerHTML=SRC.map(s=>`<li><a href="${s[1]}" target="_blank" rel="noopener">${s[0]}</a></li>`).join('')+'<li>Road and rail times are rough estimates.</li>';
 const CR=[["hero-brandenburger.jpg", "Brandenburger Haus mit Weißkugel.JPG", "Bernd Schröder, DAV-Berlin", "CC BY-SA 3.0", "http://creativecommons.org/licenses/by-sa/3.0/", "https://commons.wikimedia.org/wiki/File:Brandenburger_Haus_mit_Wei%C3%9Fkugel.JPG"], ["brandenburger-haus.jpg", "Brandenburger Haus HQ.jpg", "Luidger", "CC BY-SA 3.0", "http://creativecommons.org/licenses/by-sa/3.0/", "https://commons.wikimedia.org/wiki/File:Brandenburger_Haus_HQ.jpg"], ["glacier-kesselwand.jpg", "Kesselwandferner mit Fluchtkogel und Brandenburgerhaus (Ötztaler Alpen, Tirol, Österreich).jpg", "Woodsiailvensis", "CC BY-SA 3.0 at", "https://creativecommons.org/licenses/by-sa/3.0/at/deed.en", "https://commons.wikimedia.org/wiki/File:Kesselwandferner_mit_Fluchtkogel_und_Brandenburgerhaus_(%C3%96tztaler_Alpen,_Tirol,_%C3%96sterreich).jpg"], ["vernagt.jpg", "Vernagthütte 2020b.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Vernagth%C3%BCtte_2020b.jpg"], ["fluchtkogel.jpg", "Fluchtkogel.jpg", "Cactus26", "CC BY 2.5", "https://creativecommons.org/licenses/by/2.5", "https://commons.wikimedia.org/wiki/File:Fluchtkogel.jpg"], ["summit-cross.jpg", "Gipfelkreuz auf dem Flucktkogel bei Vent im Ötztal.jpg", "Olschok", "CC BY 4.0", "https://creativecommons.org/licenses/by/4.0", "https://commons.wikimedia.org/wiki/File:Gipfelkreuz_auf_dem_Flucktkogel_bei_Vent_im_%C3%96tztal.jpg"], ["hochjoch.jpg", "Hochjochhospiz 2018.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Hochjochhospiz_2018.jpg"], ["madonna.jpg", "Madonna di Campiglio, Piazza Righi, 2014-07-03.jpg", "2015 Michael 2015", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Madonna_di_Campiglio,_Piazza_Righi,_2014-07-03.jpg"], ["tuckett.jpg", "Rifugio Tuckett, 2272 m, 2014-07-03.jpg", "2015 Michael 2015", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Tuckett,_2272_m,_2014-07-03.jpg"], ["tuckett-castelletto.jpg", "Rifugio Tuckett 03.jpg", "Syrio", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Tuckett_03.jpg"], ["alimonta.jpg", "Rifugio Alimonta 2010 3.jpg", "Hopfenmalz", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Alimonta_2010_3.jpg"], ["alimonta-2.jpg", "Angelo Alimonta - Rifugio Dolomiti di Brenta 02.jpg", "Lungoleno", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Angelo_Alimonta_-_Rifugio_Dolomiti_di_Brenta_02.jpg"], ["bocchette-alte.jpg", "Bocchette Alte.jpg", "MirkoTN", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Bocchette_Alte.jpg"], ["bocchette-ledge.jpg", "Cengia Stanchina Bocchette Centrali.jpg", "Ste Valentini", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Cengia_Stanchina_Bocchette_Centrali.jpg"], ["campanil-basso.jpg", "Campanil Basso, cengia Bocchette Centrali.jpg", "Ste Valentini", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Campanil_Basso,_cengia_Bocchette_Centrali.jpg"], ["crozzon.jpg", "Crozzon di Brenta, 3122 m.jpg", "Glysiak", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Crozzon_di_Brenta,_3122_m.jpg"], ["kesselwand-icefall.jpg", "KesselwandfernerEisbruch.jpg", "Cactus26", "CC BY-SA 3.0", "http://creativecommons.org/licenses/by-sa/3.0/", "https://commons.wikimedia.org/wiki/File:KesselwandfernerEisbruch.jpg"], ["gepatsch.jpg", "GepatschAndKesselwandfernerFromFluchtkogel.jpg", "Cactus26", "CC BY 2.5", "https://creativecommons.org/licenses/by/2.5", "https://commons.wikimedia.org/wiki/File:GepatschAndKesselwandfernerFromFluchtkogel.jpg"], ["vernagtferner.jpg", "Vernagtferner from Vorderer Brochkogel 01.jpg", "Doronenko", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Vernagtferner_from_Vorderer_Brochkogel_01.jpg"], ["arco-castle.jpg", "Castello di Arco (TN).jpg", "Claudio Mazzocchi", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Castello_di_Arco_(TN).jpg"], ["arco-valley.jpg", "Blick auf Arco mit Umgebung.jpg", "Alpenhexe", "CC0", "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "https://commons.wikimedia.org/wiki/File:Blick_auf_Arco_mit_Umgebung.jpg"], ["colodri.jpg", "L07 353 Monte Colodri.jpg", "Falk2", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:L07_353_Monte_Colodri.jpg"], ["riva.jpg", "Riva del Garda, Lago di Garda - 52132164048.jpg", "dconvertini", "CC BY-SA 2.0", "https://creativecommons.org/licenses/by-sa/2.0", "https://commons.wikimedia.org/wiki/File:Riva_del_Garda,_Lago_di_Garda_-_52132164048.jpg"], ["vernagt-2.jpg", "Vernagthütte 2020c.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Vernagth%C3%BCtte_2020c.jpg"], ["vernagt-inside.jpg", "Vernagthütte Gastraum.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Vernagth%C3%BCtte_Gastraum.jpg"], ["vernagt-3.jpg", "2017-Vernagthütte.jpg", "FkMohr", "CC BY-SA 3.0 de", "https://creativecommons.org/licenses/by-sa/3.0/de/deed.en", "https://commons.wikimedia.org/wiki/File:2017-Vernagth%C3%BCtte.jpg"], ["vernagt-4.jpg", "Vernagthütte 2015.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Vernagth%C3%BCtte_2015.jpg"], ["bh-2.jpg", "Brandenburger Haus von Kreuzspitze.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Brandenburger_Haus_von_Kreuzspitze.jpg"], ["bh-3.jpg", "Brandenburger Haus über Kesselwandferner.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Brandenburger_Haus_%C3%BCber_Kesselwandferner.jpg"], ["bh-1919.jpg", "W Titzenthaler - Brandenburger Haus in Ötztaler Alpen (ZdDuÖAV 1919).jpg", "Waldemar Franz Hermann Titzenthaler", "Public domain", "", "https://commons.wikimedia.org/wiki/File:W_Titzenthaler_-_Brandenburger_Haus_in_%C3%96tztaler_Alpen_(ZdDu%C3%96AV_1919).jpg"], ["hochjoch-2.jpg", "Hochjochhospiz in Morgensonne.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Hochjochhospiz_in_Morgensonne.jpg"], ["hochjoch-3.jpg", "Hochjochhospiz 2018 am frühen Morgen.jpg", "Whgler", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Hochjochhospiz_2018_am_fr%C3%BChen_Morgen.jpg"], ["hochjoch-inside.jpg", "Hochjochhospiz Gastraum.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Hochjochhospiz_Gastraum.jpg"], ["hochjoch-4.jpg", "Hochjochhospiz Erker.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Hochjochhospiz_Erker.jpg"], ["breslauer-1.jpg", "Breslauer Hütte.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Breslauer_H%C3%BCtte.jpg"], ["breslauer-2.jpg", "Breslauer Hütte 2015.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Breslauer_H%C3%BCtte_2015.jpg"], ["breslauer-3.jpg", "Breslauer Hütte 2010.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Breslauer_H%C3%BCtte_2010.jpg"], ["breslauer-4.jpg", "Breslauer Hütte Ramolkamm.jpg", "Whgler", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Breslauer_H%C3%BCtte_Ramolkamm.jpg"], ["tuckett-sella.jpg", "Tuckettjochhütten, 2272 m, 2014-07-03.jpg", "2015 Michael 2015", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Tuckettjochh%C3%BCtten,_2272_m,_2014-07-03.jpg"], ["tuckett-2.jpg", "Rifugio Tuckett 05.jpg", "Syrio", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Tuckett_05.jpg"], ["tuckett-chapel.jpg", "Rifugio Tuckett - Cappellina 01.jpg", "Syrio", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Tuckett_-_Cappellina_01.jpg"], ["alimonta-3.jpg", "Rifugio Alimonta, 2600 m, Brenta.JPG", "Dieterwesp", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Alimonta,_2600_m,_Brenta.JPG"], ["alimonta-4.jpg", "Rifugio Alimonta - Vedretta degli Sfulmini, Ragoli, Trento, Italy - August 18, 2012.jpg", "Giorgio Galeotti", "CC BY 4.0", "https://creativecommons.org/licenses/by/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Alimonta_-_Vedretta_degli_Sfulmini,_Ragoli,_Trento,_Italy_-_August_18,_2012.jpg"], ["alimonta-5.jpg", "Rifugio Alimonta 2010 4.jpg", "Hopfenmalz", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Rifugio_Alimonta_2010_4.jpg"], ["madonna-2.jpg", "Madonna di Campiglio - Ortsmitte,Blumenbrücke.JPG", "Franzfoto", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Madonna_di_Campiglio_-_Ortsmitte,Blumenbr%C3%BCcke.JPG"], ["madonna-3.jpg", "Centrum Madonna di Campiglio.jpg", "Glysiak", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Centrum_Madonna_di_Campiglio.jpg"], ["madonna-4.jpg", "Panorama dal laghetto di Madonna di Campiglio, 2021.jpg", "Hotolmo22", "CC0", "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "https://commons.wikimedia.org/wiki/File:Panorama_dal_laghetto_di_Madonna_di_Campiglio,_2021.jpg"], ["arco-2.jpg", "Arco castle.JPG", "Angela Huster", "CC0", "http://creativecommons.org/publicdomain/zero/1.0/deed.en", "https://commons.wikimedia.org/wiki/File:Arco_castle.JPG"], ["arco-3.jpg", "Collegiata dell'Assunta in Arco.jpg", "Vid Pogacnik", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Collegiata_dell%27Assunta_in_Arco.jpg"], ["arco-4.jpg", "In Arco - panoramio.jpg", "holger mohaupt", "CC BY-SA 3.0", "https://creativecommons.org/licenses/by-sa/3.0", "https://commons.wikimedia.org/wiki/File:In_Arco_-_panoramio.jpg"], ["arco-5.jpg", "Fiume Sarca - Arco, Trento, Italia - 14 Agosto 2023 01.jpg", "Giorgio Galeotti", "CC BY-SA 4.0", "https://creativecommons.org/licenses/by-sa/4.0", "https://commons.wikimedia.org/wiki/File:Fiume_Sarca_-_Arco,_Trento,_Italia_-_14_Agosto_2023_01.jpg"]];
 document.getElementById('credits').innerHTML=CR.map(c=>`<li><a href="${c[5]}" target="_blank" rel="noopener">${c[1].replace(/\.(jpe?g|JPG)$/,'')}</a>, ${c[2]||'unknown'}, <a href="${c[4]}" target="_blank" rel="noopener">${c[3]}</a></li>`).join('');
